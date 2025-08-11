@@ -23,10 +23,10 @@ kafka:
   persistence:
     enabled: true
     size: 5Gi
-  brokerId: 1
-  zookeeperConnect: "localhost:2181"
-  listeners: PLAINTEXT://0.0.0.0:9092
-  advertisedListeners: PLAINTEXT://localhost:9092
+  brokerId: "1"
+  zookeeperConnect: "zookeeper:2181"               # <-- Fixed: service name of zookeeper
+  listeners: "PLAINTEXT://0.0.0.0:9092"
+  advertisedListeners: "PLAINTEXT://kafka:9092"    # <-- Fixed: service name of kafka
 
 postgres:
   image:
