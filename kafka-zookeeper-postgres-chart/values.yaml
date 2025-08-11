@@ -24,21 +24,6 @@ kafka:
     enabled: true
     size: 5Gi
   brokerId: 1
-  # Important: Use zookeeper service DNS inside the cluster, not localhost
-  zookeeperConnect: "zookeeper:2181"
+  zookeeperConnect: "zookeeper:2181"   # Use cluster DNS, not localhost
   listeners: PLAINTEXT://0.0.0.0:9092
   advertisedListeners: PLAINTEXT://kafka:9092
-
-postgres:
-  image:
-    repository: postgres
-    tag: "15"
-    pullPolicy: IfNotPresent
-  service:
-    port: 5432
-  persistence:
-    enabled: true
-    size: 5Gi
-  postgresUser: myuser
-  postgresPassword: mypassword
-  postgresDatabase: mydb
