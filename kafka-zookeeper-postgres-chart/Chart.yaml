@@ -1,0 +1,6 @@
+apiVersion: v2
+name: kafka-zookeeper-postgres
+description: Single Helm chart for Kafka + Zookeeper + PostgreSQL using official images
+type: application
+version: 0.1.0
+appVersion: "1.0"

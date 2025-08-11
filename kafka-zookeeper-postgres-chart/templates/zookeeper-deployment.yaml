@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+        - name: zookeeper
+          image: "{{ .Values.zookeeper.image.repository }}:{{ .Values.zookeeper.image.tag }}"
+          imagePullPolicy: {{ .Values.zookeeper.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.zookeeper.service.port }}
+          env:
+            - name: ZOOKEEPER_TICK_TIME
+              value: "{{ .Values.zookeeper.tickTime }}"
+            - name: ZOOKEEPER_INIT_LIMIT
+              value: "{{ .Values.zookeeper.initLimit }}"
+            - name: ZOOKEEPER_SYNC_LIMIT
+              value: "{{ .Values.zookeeper.syncLimit }}"
+            - name: ZOOKEEPER_DATA_DIR
+              value: "{{ .Values.zookeeper.dataDir }}"
+          volumeMounts:
+            - name: zookeeper-data
+              mountPath: "{{ .Values.zookeeper.dataDir }}"
+      volumes:
+        - name: zookeeper-data
+          persistentVolumeClaim:
+            claimName: zookeeper-pvc

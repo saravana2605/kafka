@@ -1,0 +1,43 @@
+zookeeper:
+  image:
+    repository: confluentinc/cp-zookeeper
+    tag: "7.6.0"
+    pullPolicy: IfNotPresent
+  service:
+    port: 2181
+  persistence:
+    enabled: true
+    size: 5Gi
+  tickTime: 2000
+  initLimit: 10
+  syncLimit: 5
+  dataDir: /var/lib/zookeeper/data
+
+kafka:
+  image:
+    repository: confluentinc/cp-kafka
+    tag: "7.6.0"
+    pullPolicy: IfNotPresent
+  service:
+    port: 9092
+  persistence:
+    enabled: true
+    size: 5Gi
+  brokerId: 1
+  zookeeperConnect: "localhost:2181"
+  listeners: PLAINTEXT://0.0.0.0:9092
+  advertisedListeners: PLAINTEXT://localhost:9092
+
+postgres:
+  image:
+    repository: postgres
+    tag: "15"
+    pullPolicy: IfNotPresent
+  service:
+    port: 5432
+  persistence:
+    enabled: true
+    size: 5Gi
+  postgresUser: myuser
+  postgresPassword: mypassword
+  postgresDatabase: mydb
